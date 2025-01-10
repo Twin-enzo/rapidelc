@@ -189,6 +189,27 @@
       { id: 2, message: "Urgent task for Staff #5: Electrical Inspection Required" },
     ];
 
+    // WebSocket setup for live messaging/notifications
+    const socket = new WebSocket('ws://yourserveraddress.com'); // Replace with your WebSocket server URL
+
+    socket.onopen = function() {
+      console.log("Connected to WebSocket server");
+    };
+
+    socket.onmessage = function(event) {
+      const newNotification = JSON.parse(event.data);
+      addNotification(newNotification);
+    };
+
+    // Add notification to the DOM
+    function addNotification(notification) {
+      const notificationContainer = document.querySelector('.admin-notifications');
+      const notificationElement = document.createElement('div');
+      notificationElement.classList.add('notification-item');
+      notificationElement.textContent = notification.message;
+      notificationContainer.appendChild(notificationElement);
+    }
+
     // Toggle the clock in/out button state
     function toggleClockInOut() {
       if (!isClockedIn) {
@@ -248,11 +269,12 @@
     function searchNotifications() {
       const searchQuery = document.getElementById('searchInput').value.toLowerCase();
       const notificationsList = document.querySelectorAll('.notification-item');
-      notificationsList.forEach(notification => {
-        if (notification.textContent.toLowerCase().includes(searchQuery)) {
-          notification.style.display = 'block';
+      notificationsList.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchQuery)) {
+          item.style.display = 'block';
         } else {
-          notification.style.display = 'none';
+          item.style.display = 'none';
         }
       });
     }
@@ -261,11 +283,6 @@
       document.getElementById('searchInput').value = '';
       searchNotifications();
     }
-
-    function submitEndOfDayReport() {
-      console.log('End of Day report submitted.');
-    }
-
   </script>
 
 </body>

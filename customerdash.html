@@ -3,209 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Dashboard - Rapide LC</title>
+  <title>Client Dashboard - Rapide Electric</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* Global Styles */
     body {
-      background-color: #333;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      text-align: center;
-      position: relative;
       font-family: 'Roboto', sans-serif;
-    }
-
-    h1 {
-      color: #FFEB3B;
-      margin-bottom: 30px;
-    }
-
-    /* Logo styles */
-    .logo-container {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+      background-color: #2f2f2f;
+      color: #fff;
+      margin: 0;
+      padding: 0;
       display: flex;
-      align-items: center;
+      justify-content: flex-start;
+      align-items: stretch;
+      height: 100vh;
     }
 
-    .logo {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-    }
-  
-
-    .logo h1 {
-      font-size: 24px;
-      font-weight: 500;
-      color: #FFEB3B;
-    }
-
-    /* Buttons */
-    .dashboard-button {
-      padding: 15px 30px;
-      background-color: #FFEB3B;
-      color: black;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 18px;
-      margin: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .dashboard-button:hover {
-      background-color: #FBC02D; /* Hover effect for yellow button */
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
+    /* Sidebar Styling */
+    .sidebar {
+      background-color: #333;
+      padding: 20px;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      width: 250px;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      justify-content: center;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h1 {
+      color: #f1c40f;
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 10px;
+      margin: 10px 0;
+      color: #f1c40f;
+      text-decoration: none;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      background-color: #f39c12;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 270px;
+      padding: 30px;
+      text-align: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    h2 {
+      color: #f1c40f;
+    }
+
+    /* Client Notifications */
+    .client-notifications {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #444;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .client-notifications h3 {
+      color: #f1c40f;
+    }
+
+    .notification-item {
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #555;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    /* Search Bar Styling */
+    .search-bar {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #444;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
+    }
+
+    .search-bar input {
+      padding: 8px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      width: 80%;
+      background-color: #333;
       color: white;
     }
 
-    .modal-content {
-      background-color: #444;
-      padding: 20px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 600px;
-      text-align: left;
-      height: 80%;
-      overflow-y: auto;
-    }
-
-    .chat-box {
-      height: 60%;
-      overflow-y: scroll;
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #333;
-      border: 1px solid #555;
-      border-radius: 5px;
-    }
-
-    .message-input {
-      width: 100%;
-      padding: 10px;
-      background-color: #444;
-      border: none;
-      border-radius: 5px;
-      color: rgb(4, 4, 4);
-      margin-top: 10px;
-    }
-
-    .upload-button {
-      margin-top: 10px;
-      background-color: #FFEB3B;
-      padding: 10px;
+    .search-bar button {
+      padding: 8px 15px;
+      background-color: #f39c12;
+      color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
 
-    .upload-button:hover {
-      background-color: #FBC02D;
+    /* Client Details Section */
+    .client-details {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #444;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+
+    .client-details h3 {
+      color: #f1c40f;
+      margin-bottom: 10px;
+    }
+
+    .client-details p {
+      color: #ddd;
+      font-size: 1.1rem;
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- Logo Section -->
-  <div class="logo-container">
-    <img src="img/logo.png" alt="Rapide Electric Logo" class="logo">
-    <h1>Rapid Electric Inc.</h1>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>Rapide Electric</h1>
+    <a href="client-dashboard.html" class="nav-item">Home</a>
+    <a href="projects.html" class="nav-item">Projects</a>
+    <a href="messages.html" class="nav-item">Messages</a>
+    <a href="contact.html" class="nav-item">Contact</a>
   </div>
 
-  <!-- Welcome Message -->
-  <div class="welcome-message" id="welcomeMessage">Welcome,!</div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2>Welcome to Your Client Dashboard</h2>
 
-  <!-- Dashboard Buttons -->
-  <button class="dashboard-button" onclick="openChatModal()">Send a Message</button>
-  <button class="dashboard-button" onclick="window.location.href='uploads.html'">Uploads</button>
-  <button class="dashboard-button" onclick="window.location.href='calendar.html'">Calendar</button>
-  <button class="dashboard-button" onclick="window.location.href='invoice.html'">Invoice</button>
-  <button class="dashboard-button" onclick="window.location.href='payment.html'">Make a Payment</button>
-  <button class="dashboard-button" onclick="window.location.href='feedback.html'">Feedback</button>
-  <button class="dashboard-button" onclick="window.location.href='settings.html'">Settings</button>
-  <button class="dashboard-button" onclick="window.location.href='logout.html'">Logout</button>
-
-  <!-- Footer Section -->
-  <footer>
-    <h3>Work Flow: Check your progress and interact with us anytime!</h3>
-  </footer>
-
-  <!-- Modal for Chat -->
-  <div id="chatModal" class="modal">
-    <div class="modal-content">
-      <h2>Customer Chat with Admin</h2>
-      <div class="chat-box" id="chatBox">
-        <!-- Messages will appear here -->
-      </div>
-      <textarea id="messageInput" class="message-input" placeholder="Type your message here..."></textarea>
-      <button class="upload-button" onclick="uploadFile()">Upload File</button>
-      <button class="upload-button" onclick="sendMessage()">Send Message</button>
-      <button class="upload-button" onclick="closeChatModal()">Close Chat</button>
+    <!-- Client Notifications -->
+    <div class="client-notifications">
+      <h3>Recent Notifications</h3>
+      <div class="notification-item" id="notification1">Your project update is scheduled for review on 01/10/2025.</div>
+      <div class="notification-item" id="notification2">Your latest payment has been successfully processed.</div>
     </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search notifications..." onkeyup="searchNotifications()">
+      <button onclick="clearSearch()">Clear Search</button>
+    </div>
+
+    <!-- Client Details Section -->
+    <div class="client-details">
+      <h3>Client Details</h3>
+      <p><strong>Client Name:</strong> John Doe</p>
+      <p><strong>Account ID:</strong> 123456</p>
+      <p><strong>Email:</strong> johndoe@example.com</p>
+      <p><strong>Phone:</strong> (555) 123-4567</p>
+      <p><strong>Status:</strong> Active</p>
+    </div>
+
   </div>
 
   <script>
-    // Retrieve the customer name from localStorage and display it in the welcome message
-    window.onload = function() {
-      const clientName = localStorage.getItem('clientName');  // Assuming the name is stored in localStorage
-      if (clientName) {
-        document.getElementById('welcomeMessage').textContent = `Welcome, ${clientName}!`;
-      } else {
-        document.getElementById('welcomeMessage').textContent = `Welcome, Customer!`;
-      }
+    // Notifications data
+    let notifications = [
+      { id: 1, message: "Your project update is scheduled for review on 01/10/2025." },
+      { id: 2, message: "Your latest payment has been successfully processed." },
+    ];
+
+    // Search notifications
+    function searchNotifications() {
+      const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+      const notificationsList = document.querySelectorAll('.notification-item');
+      notificationsList.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchQuery)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
     }
 
-    // Open chat modal
-    function openChatModal() {
-      document.getElementById('chatModal').style.display = 'flex';
+    // Clear the search input and reset notifications
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      searchNotifications();
     }
 
-    // Close chat modal
-    function closeChatModal() {
-      document.getElementById('chatModal').style.display = 'none';
-    }
-
-    // Send message function
-    function sendMessage() {
-      const message = document.getElementById('messageInput').value;
-      if (message) {
-        const chatBox = document.getElementById('chatBox');
-        const newMessage = document.createElement('div');
-        newMessage.classList.add('message');
-        newMessage.textContent = message;
-        chatBox.appendChild(newMessage);
-        document.getElementById('messageInput').value = '';
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        // Here, you would typically send the message to the backend
-        // For now, we'll simulate storing the message
-        console.log('Message sent:', message);
-      }
-    }
-
-    // Upload file function (simulated)
-    function uploadFile() {
-      alert('File uploaded!');
-      // You would implement actual file uploading here (e.g., using File API or an upload endpoint)
-    }
   </script>
 
 </body>

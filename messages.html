@@ -107,6 +107,15 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* Staff tools */
+    .staff-tools {
+      display: none;
+    }
+
+    .role-staff .staff-tools {
+      display: block;
+    }
+
     /* Responsive Design */
     @media (max-width: 600px) {
       .main-content {
@@ -116,7 +125,7 @@
     }
   </style>
 </head>
-<body>
+<body class="role-client"> <!-- Default role is client -->
 
   <!-- Sidebar -->
   <div class="sidebar">
@@ -127,6 +136,10 @@
     <a href="uploads.html" class="nav-item">Uploads</a>
     <a href="work-hours.html" class="nav-item">Track Work Hours</a>
     <a href="ai-chat.html" class="nav-item">AI Chat</a>
+
+    <!-- Admin/Staff tools (only visible for staff) -->
+    <a href="admin-dashboard.html" class="nav-item staff-tools">Admin Dashboard</a>
+    <a href="manage-projects.html" class="nav-item staff-tools">Manage Projects</a>
   </div>
 
   <!-- Main Content -->
@@ -139,6 +152,12 @@
       <textarea id="messageInput" class="chat-input" placeholder="Type your message here..." rows="4"></textarea>
       <button class="upload-btn">Send Message</button>
       <div id="loader" class="loader" style="display:none;"></div>
+    </div>
+
+    <!-- Staff Tools Section (Visible only for staff) -->
+    <div class="staff-tools">
+      <h3>Admin/Staff Tools</h3>
+      <p>This section is only available for staff members to manage projects and view work hours.</p>
     </div>
   </div>
 
@@ -161,6 +180,17 @@
         document.getElementById('messageInput').value = ""; // Clear input field
       }, 1500); // Simulate sending delay
     });
+
+    // Simulate role check
+    var userRole = 'staff'; // Change this to 'client' to simulate the client view
+
+    if (userRole === 'staff') {
+      document.body.classList.remove('role-client');
+      document.body.classList.add('role-staff');
+    } else {
+      document.body.classList.remove('role-staff');
+      document.body.classList.add('role-client');
+    }
   </script>
 
 </body>
