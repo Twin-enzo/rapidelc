@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapid Electric Inc. App</title>
+    <!-- Google Font for consistency -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Link to your custom CSS -->
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Company Name Section -->
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Rapid Electric Logo" class="logo"> <!-- Ensure this path is correct -->
+            <h1>Rapid Electric Inc.</h1>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="button-container">
+            <button id="customerBtn" class="main-btn">Customer</button>
+            <button id="staffBtn" class="main-btn">Staff</button>
+        </div>
+
+        <!-- Links for Signup and Forgot Password -->
+        <div class="auth-links">
+            <a href="signup.html" class="auth-link">Sign Up</a> | 
+            <a href="forgot-password.html" class="auth-link">Forgot Password</a>
+        </div>
+    </div>
+
+    <!-- JavaScript for button actions -->
+    <script>
+        // Redirect user to customer page
+        document.getElementById('customerBtn').onclick = function() {
+            window.location.href = "customer.html"; // Make sure this file exists in your directory
+        };
+        // Redirect user to staff page
+        document.getElementById('staffBtn').onclick = function() {
+            window.location.href = "stafflogin.html"; // Make sure this file exists in your directory
+        };
+    </script>
+</body>
+</html>

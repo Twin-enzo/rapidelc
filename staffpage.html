@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dashboard - Rapide LC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      color: #FFEB3B;
+      margin-bottom: 30px;
+    }
+
+    /* Buttons */
+    .dashboard-button {
+      padding: 15px 30px;
+      background-color: #FFEB3B;  /* Yellow button */
+      color: black;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 18px;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .dashboard-button:hover {
+      background-color: #FBC02D; /* Hover effect for yellow button */
+    }
+
+    .dashboard-button.active {
+      background-color: red; /* Red when active */
+    }
+
+    /* Logo styles */
+    .logo-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      font-weight: 500;
+      color: #FFEB3B;
+    }
+
+    /* Welcome message */
+    .welcome-message {
+      font-size: 22px;
+      color: #FFEB3B;
+      margin-bottom: 20px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .modal-content {
+      background-color: #444;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      text-align: left;
+      height: 80%;
+      overflow-y: auto;
+    }
+
+    .chat-box {
+      height: 60%;
+      overflow-y: scroll;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #333;
+      border: 1px solid #555;
+      border-radius: 5px;
+    }
+
+    .message-input {
+      width: 100%;
+      padding: 10px;
+      background-color: #444;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .upload-button {
+      margin-top: 10px;
+      background-color: #FFEB3B;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .upload-button:hover {
+      background-color: #FBC02D;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo Section -->
+  <div class="logo-container">
+    <img src="img/logo.png" alt="Rapide Electric Logo" class="logo">
+    <h1>Rapide Electric Inc.</h1>
+  </div>
+
+  <!-- Welcome Message -->
+  <div class="welcome-message" id="welcomeMessage">Welcome, [Staff Name]</div>
+
+  <!-- Work Hour Button -->
+  <button id="workButton" class="dashboard-button" onclick="startWorkTimer()">Start Work</button>
+
+  <!-- Location Tracking (Hidden from UI but actively sending to the backend) -->
+  <script>
+    // Function to start work timer and change button color
+    let workTimerStarted = false;
+    let workButton = document.getElementById('workButton');
+    let timerTimeout;
+
+    // Function to get the staff name from local storage
+    function getStaffName() {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser && storedUser.username) {
+        return storedUser.username;
+      }
+      return "Staff";  // Default if no username is found
+    }
+
+    // Set welcome message dynamically
+    document.getElementById('welcomeMessage').innerHTML = `Welcome, ${getStaffName()}`;
+
+    function startWorkTimer() {
+      if (!workTimerStarted) {
+        workTimerStarted = true;
+        workButton.innerHTML = "Hold to Start Work";
+
+        // Change color to red after 5 seconds
+        timerTimeout = setTimeout(() => {
+          workButton.classList.add('active');
+          workButton.innerHTML = "Work Started";
+          startTrackingLocation(); // Start tracking location
+        }, 5000);
+      }
+    }
+
+    // Start continuous location tracking
+    function startTrackingLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+          position => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log('Location:', latitude, longitude);  // You can see it in the console
+
+            // Send location data to your backend (example: via a POST request)
+            fetch('your-backend-endpoint/track-location', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                latitude: latitude,
+                longitude: longitude,
+                timestamp: new Date().toISOString(),
+              }),
+            })
+            .then(response => response.json())
+            .then(data => console.log('Location data sent:', data))
+            .catch(error => console.error('Error sending location:', error));
+          },
+          error => console.error('Error getting location:', error),
+          {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: 5000
+          }
+        );
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+    }
+  </script>
+
+  <!-- Dashboard Buttons -->
+  <button class="dashboard-button" onclick="window.location.href='projects.html'">View Projects</button>
+  <button class="dashboard-button" onclick="window.location.href='tasks.html'">Manage Tasks</button>
+  <button class="dashboard-button" onclick="openChatModal()">Messages</button>
+  <button class="dashboard-button" onclick="window.location.href='file-upload.html'">Upload Reports</button>
+  <button class="dashboard-button" onclick="window.location.href='work-hours.html'">Track Work Hours</

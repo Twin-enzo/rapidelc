@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard - Rapide LC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    h1 {
+      color: #FFEB3B;
+      margin-bottom: 30px;
+    }
+
+    /* Logo styles */
+    .logo-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+  
+
+    .logo h1 {
+      font-size: 24px;
+      font-weight: 500;
+      color: #FFEB3B;
+    }
+
+    /* Buttons */
+    .dashboard-button {
+      padding: 15px 30px;
+      background-color: #FFEB3B;
+      color: black;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 18px;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .dashboard-button:hover {
+      background-color: #FBC02D; /* Hover effect for yellow button */
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .modal-content {
+      background-color: #444;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      text-align: left;
+      height: 80%;
+      overflow-y: auto;
+    }
+
+    .chat-box {
+      height: 60%;
+      overflow-y: scroll;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #333;
+      border: 1px solid #555;
+      border-radius: 5px;
+    }
+
+    .message-input {
+      width: 100%;
+      padding: 10px;
+      background-color: #444;
+      border: none;
+      border-radius: 5px;
+      color: rgb(4, 4, 4);
+      margin-top: 10px;
+    }
+
+    .upload-button {
+      margin-top: 10px;
+      background-color: #FFEB3B;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .upload-button:hover {
+      background-color: #FBC02D;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo Section -->
+  <div class="logo-container">
+    <img src="img/logo.png" alt="Rapide Electric Logo" class="logo">
+    <h1>Rapid Electric Inc.</h1>
+  </div>
+
+  <!-- Welcome Message -->
+  <div class="welcome-message" id="welcomeMessage">Welcome,!</div>
+
+  <!-- Dashboard Buttons -->
+  <button class="dashboard-button" onclick="openChatModal()">Send a Message</button>
+  <button class="dashboard-button" onclick="window.location.href='uploads.html'">Uploads</button>
+  <button class="dashboard-button" onclick="window.location.href='calendar.html'">Calendar</button>
+  <button class="dashboard-button" onclick="window.location.href='invoice.html'">Invoice</button>
+  <button class="dashboard-button" onclick="window.location.href='payment.html'">Make a Payment</button>
+  <button class="dashboard-button" onclick="window.location.href='feedback.html'">Feedback</button>
+  <button class="dashboard-button" onclick="window.location.href='settings.html'">Settings</button>
+  <button class="dashboard-button" onclick="window.location.href='logout.html'">Logout</button>
+
+  <!-- Footer Section -->
+  <footer>
+    <h3>Work Flow: Check your progress and interact with us anytime!</h3>
+  </footer>
+
+  <!-- Modal for Chat -->
+  <div id="chatModal" class="modal">
+    <div class="modal-content">
+      <h2>Customer Chat with Admin</h2>
+      <div class="chat-box" id="chatBox">
+        <!-- Messages will appear here -->
+      </div>
+      <textarea id="messageInput" class="message-input" placeholder="Type your message here..."></textarea>
+      <button class="upload-button" onclick="uploadFile()">Upload File</button>
+      <button class="upload-button" onclick="sendMessage()">Send Message</button>
+      <button class="upload-button" onclick="closeChatModal()">Close Chat</button>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve the customer name from localStorage and display it in the welcome message
+    window.onload = function() {
+      const clientName = localStorage.getItem('clientName');  // Assuming the name is stored in localStorage
+      if (clientName) {
+        document.getElementById('welcomeMessage').textContent = `Welcome, ${clientName}!`;
+      } else {
+        document.getElementById('welcomeMessage').textContent = `Welcome, Customer!`;
+      }
+    }
+
+    // Open chat modal
+    function openChatModal() {
+      document.getElementById('chatModal').style.display = 'flex';
+    }
+
+    // Close chat modal
+    function closeChatModal() {
+      document.getElementById('chatModal').style.display = 'none';
+    }
+
+    // Send message function
+    function sendMessage() {
+      const message = document.getElementById('messageInput').value;
+      if (message) {
+        const chatBox = document.getElementById('chatBox');
+        const newMessage = document.createElement('div');
+        newMessage.classList.add('message');
+        newMessage.textContent = message;
+        chatBox.appendChild(newMessage);
+        document.getElementById('messageInput').value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Here, you would typically send the message to the backend
+        // For now, we'll simulate storing the message
+        console.log('Message sent:', message);
+      }
+    }
+
+    // Upload file function (simulated)
+    function uploadFile() {
+      alert('File uploaded!');
+      // You would implement actual file uploading here (e.g., using File API or an upload endpoint)
+    }
+  </script>
+
+</body>
+</html>

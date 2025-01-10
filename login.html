@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Rapid Electric Inc.</title>
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #333;
+            color: #f1c40f;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        h1, h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #f1c40f;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #444;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            width: 200px; /* Adjust this according to the logo size */
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #555;
+            border: none;
+            border-radius: 5px;
+            color: #f1c40f;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #FFEB3B;
+            color: black;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #FBC02D;
+        }
+
+        .auth-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .auth-links a {
+            color: #FFEB3B;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Rapide Electric Logo"> <!-- Ensure this path is correct -->
+            <h1>Rapid Electric Inc.</h1>
+        </div>
+
+        <!-- Login Form Section -->
+        <h3>Log In</h3>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+
+        <!-- Auth Links Section -->
+        <div class="auth-links">
+            <a href="signup.html">Don't have an account? Sign up</a> | 
+            <a href="forgot-password.html">Forgot Password?</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (storedUser && storedUser.username === username && storedUser.password === password) {
+                alert('Login successful!');
+                
+                if (storedUser.role === 'customer') {
+                    window.location.href = 'customer-dash.html';
+                } else if (storedUser.role === 'staff') {
+                    window.location.href = 'staff-dash.html';
+                }
+            } else {
+                alert('Invalid username or password!');
+            }
+        });
+    </script>
+</body>
+</html>
